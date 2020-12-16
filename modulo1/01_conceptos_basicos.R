@@ -4,48 +4,55 @@
 # Formas de escribir nombres de variables u objetos
 comunas.santiago
 comunasSantiago
-comunas_santiago
+comunas_santiago<-8
 
 # No iniciar con nÃºmeros o sÃ­mbolos. Tampoco usar acentos ni espacios
 03 <- "casa"
-tipo casa <- "chilena"
-%casas <- c(10, 20, 44)
+#tipo casa <- "chilena" # error por el de espacio "tipo casa"
+#%casas <- c(10, 20, 44) # error por el porcentaje
+
+#la cadena de datos se genera or doble comillas ""
+
+tipo_casa <- "chilena"
+rm
+# la función rm, elimina un dato
+
+## aquí va una sección ---- se hace con 4 -
 
 
 # Cargar librerias --------------------------------------------------------
-install.packages("tidyverse")
-library(tidyverse)
+install.packages("tidyverse") #para cargar el paquete
+library(tidyverse) #para utilizar
 library(knitr)
 
 # Cargar data -------------------------------------------------------------
 
-data(iris)
-View(iris)
+data(iris) #para cargar los antecedentes
+View(iris) #para ver la tabla
 
 # AproximaciÃ³n inicial a los datos ----------------------------------------
 
 dim(iris) # n filas y columnas
-str(iris)
-names(iris)
-head(iris)
-tail(iris)
-summary(iris)
-glimpse(iris)
-min(iris$Sepal.Length)
-max(iris$Sepal.Length)
-unique(iris$Species) # listar valores unicos
-table(iris$Species) # conteo de variables
+str(iris) # para determinar caracteristicas de la tabla y de sus datos
+names(iris) # nombre de los datos
+head(iris, 10) # primeros 6 datos
+tail(iris) # ultimos 6 datos
+summary(iris) # estadigrafos de nivel central
+glimpse(iris) #es como el str(iris), pero mas detallada
+min(iris$Sepal.Length) #el mínimo de la columna Petal.Length
+max(iris$Sepal.Length) #el máximo de la columna Petal.Length
+unique(iris$Species) # listar valores unicos en la columna Species
+table(iris$Species) # conteo de variables en la columna Species
 
 dim(Iris) # cuidado con las mayÃºsculas
-
-
+dim(iris)
 
 # Buscar ayuda ------------------------------------------------------------
 
 ?glimpse
-example(colnames)
+example(colnames) #colnames es para ver el nombre de las variables
 vignette(all = FALSE)
-vignette(all = TRUE)
+vignette(all = TRUE) #las librerias que tiene el computador
 vignette("grid")
 
 
@@ -68,7 +75,7 @@ iris %>%
   group_by(Species) %>% 
   summarise(avg = mean(Sepal.Length)) %>% 
   arrange(avg)
-
+  
 iris %>%
   group_by(Species) %>%
   summarise(avg.sepal.width = mean(Sepal.Width), avg.sepal.length = mean(Sepal.Length)) %>%
@@ -80,9 +87,10 @@ tibble(variable = names(iris)) %>% # Al usar data_frame() da un warning
   mutate(class = map(iris, typeof)) %>% 
   kable()
 
+#%>% esto se hace con cotrol + shift + M
 
 # Formas de segmentar
-setosa <- iris %>% 
+setosa <- iris %>% #es para segmentar o filtrar la información
   filter(Species == "setosa")
 setosa2 <- iris[iris$Species == "setosa", ] # Es lo mismo que lo anterior
 
@@ -146,9 +154,9 @@ ggplot(iris, aes(x = Species, y = Sepal.Width)) +
   geom_boxplot(notch = T, aes(fill = Species)) +
   scale_fill_manual(name = "Especie", values = c('#a6cee3','#1f78b4','#b2df8a'))
 
-ggplot(iris, aes(x = Species, y = Sepal.Width)) +
-  geom_boxplot(notch = T, aes(fill = Species)) +
-  scale_fill_viridis_d(name = "Especie")
+  ggplot(iris, aes(x = Species, y = Sepal.Width)) +
+    geom_boxplot(notch = T, aes(fill = Species)) +
+    scale_fill_viridis_d(name = "Especie")
 
 ggplot(iris, aes(x = Species, y = Sepal.Width)) + 
   geom_jitter(aes(shape = Species))
